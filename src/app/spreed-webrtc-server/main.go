@@ -352,7 +352,7 @@ func runner(runtime phoenix.Runtime) error {
 	r.Handle("/robots.txt", http.StripPrefix(config.B, http.FileServer(http.Dir(path.Join(rootFolder, "static")))))
 	r.Handle("/favicon.ico", http.StripPrefix(config.B, http.FileServer(http.Dir(path.Join(rootFolder, "static", "img")))))
 	r.Handle("/ws", makeWSHandler(statsManager, sessionManager, codec, channellingAPI))
-	r.HandleFunc("/{room}", httputils.MakeGzipHandler(roomHandler))
+	r.HandleFunc("/rooms/{room}", httputils.MakeGzipHandler(roomHandler))
 
 	// Add API end points.
 	api := sleepy.NewAPI()

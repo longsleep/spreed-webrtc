@@ -154,6 +154,7 @@ define([
 		});
 
 		$rootScope.$on("$locationChangeSuccess", function(event) {
+			console.log("xxx locationChangeSuccess", event);
 			var roomName;
 			if ($route.current) {
 				roomName = $route.current.params.room;

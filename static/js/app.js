@@ -154,7 +154,9 @@ define([
 			$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|filesystem|blob):/);
 			$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|filesystem|blob):|data:image\//);
 			// Setup routing
-			$routeProvider.when("/:room", {});
+			$routeProvider.when("/rooms/:room", {
+				templateUrl: require.toUrl("partials/view/rooms.html")
+			});
 			// Use HTML5 routing.
 			$locationProvider.html5Mode(true);
 		}]);
