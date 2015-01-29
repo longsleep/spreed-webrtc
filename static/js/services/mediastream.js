@@ -30,7 +30,7 @@ define([
 
 ], function($, _, uaparser, sjcl, Modernizr, tokens) {
 
-	return ["globalContext", "connector", "api", "webrtc", "appData", "$route", "$location", "$window", "visibility", "alertify", "$http", "safeApply", "$timeout", "$sce", "localStorage", "continueConnector", "restURL", function(context, connector, api, webrtc, appData, $route, $location, $window, visibility, alertify, $http, safeApply, $timeout, $sce, localStorage, continueConnector, restURL) {
+	return ["globalContext", "connector", "api", "webrtc", "appData", "$window", "visibility", "alertify", "$http", "safeApply", "$timeout", "$sce", "localStorage", "continueConnector", "restURL", function(context, connector, api, webrtc, appData, $window, visibility, alertify, $http, safeApply, $timeout, $sce, localStorage, continueConnector, restURL) {
 
 		var url = (context.Ssl ? "wss" : "ws") + "://" + context.Host + (context.Cfg.B || "/") + "ws";
 		var version = context.Cfg.Version;
