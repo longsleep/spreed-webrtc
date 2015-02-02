@@ -154,9 +154,9 @@ define([
 		});
 
 		$rootScope.$on("$locationChangeSuccess", function(event) {
-			console.log("xxx locationChangeSuccess", event);
+			console.log("xxx locationChangeSuccess", event, $route.current);
 			var roomName;
-			if ($route.current) {
+			if ($route.current && $route.current.params.room) {
 				roomName = $route.current.params.room;
 				roomName = $window.decodeURIComponent(roomName);
 			} else {

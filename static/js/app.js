@@ -156,6 +156,9 @@ define([
 			// Setup routing
 			$routeProvider.when("/rooms/:room", {
 				templateUrl: require.toUrl("partials/view/rooms.html")
+			})
+			.when("/rooms", {
+				templateUrl: require.toUrl("partials/view/rooms.html")
 			});
 			// Use HTML5 routing.
 			$locationProvider.html5Mode(true);
