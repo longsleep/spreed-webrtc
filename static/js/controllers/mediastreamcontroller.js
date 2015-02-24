@@ -24,12 +24,7 @@ define(['jquery', 'underscore', 'angular', 'bigscreen', 'moment', 'sjcl', 'moder
 
 	return ["$scope", "$rootScope", "$element", "$window", "$timeout", "safeDisplayName", "safeApply", "mediaStream", "appData", "playSound", "desktopNotify", "alertify", "toastr", "translation", "fileDownload", "localStorage", "screensharing", "userSettingsData", "localStatus", "dialogs", "rooms", "constraints", function($scope, $rootScope, $element, $window, $timeout, safeDisplayName, safeApply, mediaStream, appData, playSound, desktopNotify, alertify, toastr, translation, fileDownload, localStorage, screensharing, userSettingsData, localStatus, dialogs, rooms, constraints) {
 
-		/*console.log("route", $route, $routeParams, $location);*/
-
-		// Disable drag and drop.
-		$($window).on("dragover dragenter drop", function(event) {
-			event.preventDefault();
-		});
+		console.log("Starting MediastreamController ...");
 
 		// Avoid accidential reloads or exits when in a call.
 		var manualUnload = false;
@@ -133,49 +128,12 @@ define(['jquery', 'underscore', 'angular', 'bigscreen', 'moment', 'sjcl', 'moder
 		$scope.autoAccept = null;
 		$scope.isCollapsed = true;
 		$scope.roomsHistory = [];
-		$scope.defaults = {
-			displayName: null,
-			buddyPicture: null,
-			message: null,
-			settings: {
-				videoQuality: "high",
-				sendStereo: false,
-				maxFrameRate: 20,
-				defaultRoom: "",
-				language: "",
-				audioRenderToAssociatedSkin: true,
-				videoCpuOveruseDetection: true,
-				experimental: {
-					enabled: false,
-					audioEchoCancellation2: true,
-					audioAutoGainControl2: true,
-					audioNoiseSuppression2: true,
-					audioTypingNoiseDetection: true,
-					videoLeakyBucket: true,
-					videoNoiseReduction: false
-				}
-			}
-		};
-		$scope.master = angular.copy($scope.defaults);
 
 		// Data voids.
 		var resurrect = null;
 		var reconnecting = false;
 		var connected = false;
 		var autoreconnect = true;
-
-		$scope.update = function(user) {
-			$scope.master = angular.copy(user);
-			if (connected) {
-				$scope.updateStatus();
-			}
-			$scope.refreshWebrtcSettings();
-		};
-
-		$scope.reset = function() {
-			$scope.user = angular.copy($scope.master);
-		};
-		$scope.reset(); // Call once for bootstrap.
 
 		$scope.setStatus = function(status) {
 			// This is the connection status to signaling server.
@@ -185,6 +143,13 @@ define(['jquery', 'underscore', 'angular', 'bigscreen', 'moment', 'sjcl', 'moder
 		$scope.getStatus = function() {
 			return $scope.status;
 		};
+
+		$scope.$on("updated", function() {
+			if (connected) {
+				$scope.updateStatus();
+			}
+			$scope.refreshWebrtcSettings();
+		});
 
 		$scope.updateStatus = function(clear) {
 			// This is the user status.
@@ -778,6 +743,9 @@ define(['jquery', 'underscore', 'angular', 'bigscreen', 'moment', 'sjcl', 'moder
 				}
 			}
 		});
+
+		// Initial connect.
+		mediaStream.initialize($scope);
 
 		_.defer(function() {
 			if (!Modernizr.websockets) {

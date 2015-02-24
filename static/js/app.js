@@ -164,15 +164,20 @@ define([
 			$locationProvider.html5Mode(true);
 		}]);
 
-		app.run(["$rootScope", "$timeout", "mediaStream", "translation", "continueConnector", function($rootScope, $timeout, mediaStream, translation, continueConnector) {
+		app.run(["$rootScope", "translation", "visibility", function($rootScope, translation, visibility) {
 			translation.inject($rootScope);
-			console.log("Initializing ...");
-			var initialize = continueConnector.defer();
-			mediaStream.initialize($rootScope, translation);
-			$timeout(function() {
-				console.log("Initializing complete.")
-				initialize.resolve();
-			}, 0);
+			console.log("Running app ...");
+
+			visibility.afterPrerendering(function() {
+				console.log("App has finished pre-rendering ...");
+				// Hide loader when we are visible.
+				var loader = $("#loader");
+				loader.addClass("done");
+				_.delay(function() {
+					loader.remove();
+				}, 1000);
+			});
+
 		}]);
 
 		app.constant("availableLanguages", languages);
@@ -191,13 +196,6 @@ define([
 			}];
 
 		});
-
-		app.directive("spreedWebrtc", [function() {
-			return {
-				restrict: "A",
-				controller: "MediastreamController"
-			}
-		}]);
 
 		return app;
 

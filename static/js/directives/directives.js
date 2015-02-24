@@ -48,7 +48,9 @@ define([
 	'directives/bfi',
 	'directives/title',
 	'directives/welcome',
-	'directives/menu'], function(_, onEnter, onEscape, statusMessage, buddyList, buddyPictureCapture, buddyPictureUpload, settings, chat, audioVideo, usability, audioLevel, fileInfo, screenshare, roomBar, socialShare, page, contactRequest, defaultDialog, pdfcanvas, odfcanvas, presentation, youtubevideo, bfi, title, welcome, menu) {
+	'directives/menu',
+	'directives/room',
+	'directives/spreedwebrtc'], function(_, onEnter, onEscape, statusMessage, buddyList, buddyPictureCapture, buddyPictureUpload, settings, chat, audioVideo, usability, audioLevel, fileInfo, screenshare, roomBar, socialShare, page, contactRequest, defaultDialog, pdfcanvas, odfcanvas, presentation, youtubevideo, bfi, title, welcome, menu, room, spreedWebrtc) {
 
 	var directives = {
 		onEnter: onEnter,
@@ -76,7 +78,9 @@ define([
 		bfi: bfi,
 		title: title,
 		welcome: welcome,
-		menu: menu
+		menu: menu,
+		room: room,
+		spreedWebrtc: spreedWebrtc
 	};
 
 	var initialize = function(angModule) {

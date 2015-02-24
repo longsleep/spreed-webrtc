@@ -154,7 +154,7 @@ define([
 		});
 
 		$rootScope.$on("$locationChangeSuccess", function(event) {
-			console.log("xxx locationChangeSuccess", event, $route.current);
+			//console.log("xxx locationChangeSuccess", event, $route.current);
 			var roomName;
 			if ($route.current && $route.current.params.room) {
 				roomName = $route.current.params.room;
@@ -165,8 +165,6 @@ define([
 			requestedRoomName = roomName;
 			if (connector.connected) {
 				_.defer(joinRequestedRoom);
-			} else {
-				$rootScope.$broadcast("rooms.ready");
 			}
 		});
 
@@ -219,7 +217,7 @@ define([
 				name = name.replace(/^%2B/, "+");
 
 				safeApply($rootScope, function(scope) {
-					$location.path("/" + name);
+					$location.path("/rooms/" + name);
 					if (replace) {
 						$location.replace();
 					}

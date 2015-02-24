@@ -30,7 +30,7 @@ define([
 
 ], function($, _, uaparser, sjcl, Modernizr, tokens) {
 
-	return ["globalContext", "connector", "api", "webrtc", "appData", "$window", "visibility", "alertify", "$http", "safeApply", "$timeout", "$sce", "localStorage", "continueConnector", "restURL", function(context, connector, api, webrtc, appData, $window, visibility, alertify, $http, safeApply, $timeout, $sce, localStorage, continueConnector, restURL) {
+	return ["globalContext", "connector", "api", "webrtc", "appData", "$window", "visibility", "alertify", "$http", "safeApply", "$timeout", "$sce", "localStorage", "continueConnector", "restURL", "translation", function(context, connector, api, webrtc, appData, $window, visibility, alertify, $http, safeApply, $timeout, $sce, localStorage, continueConnector, restURL, translation) {
 
 		var url = (context.Ssl ? "wss" : "ws") + "://" + context.Host + (context.Cfg.B || "/") + "ws";
 		var version = context.Cfg.Version;
@@ -203,10 +203,11 @@ define([
 					}
 				});
 			},
-			initialize: function($rootScope, translation) {
+			initialize: function($rootScope) {
+
+				console.log("Initializing WebRTC ...");
 
 				var cont = false;
-				var ready = false;
 
 				$rootScope.version = version;
 				$rootScope.connect = false;
@@ -217,7 +218,7 @@ define([
 						console.error("This browser has no support for websockets. Connect aborted.");
 						return;
 					}
-					if (ready && cont) {
+					if (cont) {
 						// Inject connector function into scope, so that controllers can pick it up.
 						console.log("Ready to connect ...");
 						mediaStream.connect();
@@ -227,20 +228,7 @@ define([
 					}
 				};
 
-				$rootScope.$on("rooms.ready", function(event) {
-					console.info("Initial room path set, continuing to connect ...");
-					ready = true;
-					connect();
-				});
-
 				visibility.afterPrerendering(function() {
-
-					// Hide loader when we are visible.
-					var loader = $("#loader");
-					loader.addClass("done");
-					_.delay(function() {
-						loader.remove();
-					}, 1000);
 
 					if (context.Cfg.Tokens) {
 						var storedCode = localStorage.getItem("mediastream-access-code");
