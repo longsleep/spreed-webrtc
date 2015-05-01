@@ -147,11 +147,14 @@
   top: 0;
 
   &.newmessage {
-    .chatheadertitle:after {
+    /*.chatheadertitle:after {
       content: '***';
       position: absolute;
       right: 32px;
       top: 2px;
+    }*/
+    .chatheadertitle {
+      font-weight: bold;
     }
 
     .chatheader {
@@ -503,7 +506,7 @@
   border-bottom: 1px solid $bordercolor-strong;
   //border-left: 1px solid $bordercolor;
   height: 48px;
-  left: 4px;
+  left: 0px;
   line-height: 46px;
   padding: 0 4px 0 8px;
   position: absolute;
@@ -519,7 +522,7 @@
     cursor: pointer;
     display: block;
     font-size: 1.4em;
-    left: 0;
+    left: 4px;
     position: absolute;
     text-align: center;
     top: 0;
