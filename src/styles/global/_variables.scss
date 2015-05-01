@@ -23,13 +23,15 @@
 
 // general
 $background: #e5e5e5 !default;
-$componentbg: #f8f8f8 !default;
+$componentbg: #fff !default;
+$headerbg: #f8f8f8 !default;
 $componentfg1: #262626 !default;
 $componentfg2: rgba(0, 0, 0, .5) !default;
 $componentfg3: rgba(0, 0, 0, .2) !default;
 $componentfg4: #737373 !default;
 $sidepanebg: #fff !default;
-$bordercolor: #e7e7e7 !default;
+$bordercolor: #f1f1f1 !default;
+$bordercolor-strong: #ddd !default;
 $actioncolor1: rgb(132, 184, 25) !default;
 $actioncolor2: rgb(0, 149, 52) !default;
 
@@ -71,7 +73,7 @@ $audiolevel-top: 43px !default;
 
 // main navigation bar
 $minbarheight: 51px !default;
-$bar-background: $componentbg;
+$bar-background: #f8f8f8;
 $bar-logo-text-desc: rgb(34, 34, 34) !default;
 $bar-btn-action-border: $bordercolor !default;
 $bar-btn-action-color: #333 !default;
@@ -108,14 +110,14 @@ $buddylist-action-font-size: 1.6em;
 // chat
 $chat-width: $pane-width !default;
 $chat-background: $componentbg !default;
-$chat-header: rgba(255, 255, 255, .9) !default;
+$chat-header: $headerbg !default;
 $chat-disabled: #aaa !default;
 $chat-badge: #84b819 !default;
 $chat-ctrl: rgba(0, 0, 0, .3) !default;
 $chat-timestamp: #aaa !default;
 $chat-meta: #aaa !default;
-$chat-msg-background: #fff !default;
-$chat-msg-border: transparent !default;
+$chat-msg-background: #f5f5f5 !default;
+$chat-msg-border: $bordercolor-strong !default;
 $chat-msg-shadow: rgba(0, 0, 0, .03) !default;
 $chat-arrow-border: #eee;
 
@@ -134,8 +136,8 @@ $chat-msg-delivered-icon: '\f019' !default;
 $chat-msg-received-icon: '\f06e' !default;
 $chat-msg-read-icon: '\f00c' !default;
 
-$chat-msg-self-background: #fff !default;
-$chat-msg-remote-background: #fff !default;
+$chat-msg-self-background: $chat-msg-background !default;
+$chat-msg-remote-background: $chat-msg-background !default;
 
 $chat-bottom-background: $chat-background !default;
 $chat-typing: $chat-meta !default;
@@ -189,5 +191,7 @@ $font-family-base: $font-family-sans-serif !default;
 $font-size-base: $base-font-size !default;
 $text-color: $font-color !default;
 $dialog-header-neutral: #eee !default;
+
+$list-group-border: $bordercolor !default;
 
 $line-height-base: $base-line-height / $font-size-base;

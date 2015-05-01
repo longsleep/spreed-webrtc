@@ -128,7 +128,7 @@
   @include tap-highlight-color($tap-highlight);
 
   background: $sidepanebg;
-  border-bottom: 1px solid $bordercolor;
+  border-bottom: 1px solid $bordercolor-strong;
   cursor: pointer;
   display: block;
   font-size: 13px;
@@ -177,7 +177,7 @@
 
   .buddyPicture {
     background: $actioncolor1;
-    border-radius: 2px;
+    border-radius: 23px;
     float: left;
     height: 46px;
     margin: 10px;

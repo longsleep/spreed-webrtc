@@ -219,7 +219,7 @@
     }
 
     > div {
-      border-top: 1px solid $bordercolor;
+      border-top: 1px solid $bordercolor-strong;
     }
   }
 
@@ -289,6 +289,8 @@
     padding: 8px;
     position: relative;
     word-wrap: break-word;
+    word-break: break-all;
+    float: left;
 
     ul {
       list-style-type: none;
@@ -369,7 +371,7 @@
 
     .buddyPicture {
       background: $actioncolor1;
-      border-radius: 2px;
+      border-radius: 23px;
       height: 46px;
       left: 4px;
       overflow: hidden;
@@ -396,19 +398,19 @@
       }
     }
 
-    &:before,
+    /*&:before,
     &:after {
       border-style: solid;
       content: '';
       display: block;
       position: absolute;
       width: 0;
-    }
+    }*/
 
     &.is_remote {
       background: $chat-msg-remote-background;
 
-      &:before {  // arrow border
+      /*&:before {  // arrow border
         border-color: transparent $chat-arrow-border;
         border-width: 7px 11px 7px 0;
         bottom: auto;
@@ -422,7 +424,7 @@
         bottom: auto;
         left: -11px;
         top: 5px;
-      }
+      }*/
     }
 
     &.is_self {
@@ -430,8 +432,9 @@
       margin-left: 4px;
       margin-right: 18px;
       padding-right: 0;
+      float: right;
 
-      &:before { // arrow border
+      /*&:before { // arrow border
         border-color: transparent $chat-arrow-border;
         border-width: 7px 0 7px 11px;
         bottom: 4px;
@@ -445,7 +448,7 @@
         bottom: 5px;
         bottom: auto;
         right: -11px;
-      }
+      }*/
 
       li:before {
         color: $chat-msg-default-icon-color;
@@ -507,12 +510,11 @@
 }
 
 .chatmenu {
-  height: 36px;
-  left: 0;
-  padding: 2px 4px;
+  height: 48px;
+  padding: 8px 0px;
   position: absolute;
-  right: 0;
-  top: 36px;
+  right: 24px;
+  top: 0px;
 
   @include breakpt($breakpoint-chat-small, max-height) {
     display: none;
@@ -520,12 +522,12 @@
 }
 
 .chatbody {
-  border-left: 1px solid $bordercolor;
+  //border-left: 1px solid $bordercolor;
   bottom: -1px;
   left: 0;
   position: absolute;
   right: 0;
-  top: 74px;
+  top: 48px;
 
   @include breakpt($breakpoint-chat-small, max-height) {
     border-top: 1px solid $bordercolor;
@@ -536,11 +538,11 @@
 
 .chatheader {
   background: $chat-header;
-  border-bottom: 1px solid $bordercolor;
-  border-left: 1px solid $bordercolor;
-  height: 36px;
+  border-bottom: 1px solid $bordercolor-strong;
+  //border-left: 1px solid $bordercolor;
+  height: 48px;
   left: 0;
-  line-height: 34px;
+  line-height: 46px;
   padding: 0 4px 0 8px;
   position: absolute;
   right: 0;
