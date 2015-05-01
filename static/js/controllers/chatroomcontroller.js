@@ -20,7 +20,7 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'moment', 'text!partials/fileinfo.html', 'text!partials/contactrequest.html', 'text!partials/geolocation.html', 'text!partials/picturehover.html'], function($, _, moment, templateFileInfo, templateContactRequest, templateGeolocation, templatePictureHover) {
+define(['jquery', 'underscore', 'moment', 'text!partials/fileinfo.html', 'text!partials/contactrequest.html', 'text!partials/geolocation.html'], function($, _, moment, templateFileInfo, templateContactRequest, templateGeolocation) {
 
 	// ChatroomController
 	return ["$scope", "$element", "$window", "safeMessage", "safeDisplayName", "$compile", "$filter", "translation", "mediaStream", function($scope, $element, $window, safeMessage, safeDisplayName, $compile, $filter, translation, mediaStream) {
@@ -50,7 +50,6 @@ define(['jquery', 'underscore', 'moment', 'text!partials/fileinfo.html', 'text!p
 		var fileInfo = $compile(templateFileInfo);
 		var contactRequest = $compile(templateContactRequest);
 		var geoLocation = $compile(templateGeolocation);
-		var pictureHover = $compile(templatePictureHover);
 
 		var knowMessage = {
 			r: {},
@@ -102,27 +101,6 @@ define(['jquery', 'underscore', 'moment', 'text!partials/fileinfo.html', 'text!p
 			}
 		};
 
-		var addPictureHover = function(from, msg, is_self) {
-			if (msg.picture && !is_self) {
-				var subscope = $scope.$new();
-				subscope.startChat = function() {
-					$scope.$emit("startchat", from, {
-						autofocus: true,
-						restore: true
-					});
-				};
-				subscope.doCall = function() {
-					mediaStream.webrtc.doCall(from);
-				};
-				pictureHover(subscope, function(clonedElement, scope) {
-					msg.picture.append(clonedElement);
-				});
-			} else {
-				return;
-			}
-			msg.extra_css += "with_hoverimage ";
-		};
-
 		var showTitleAndPicture = function(from, msg, is_self) {
 			if ($scope.isgroupchat) {
 				msg.title = $("<strong>");
@@ -133,7 +111,6 @@ define(['jquery', 'underscore', 'moment', 'text!partials/fileinfo.html', 'text!p
 				if (imgSrc) {
 					msg.picture.find("img").attr("src", imgSrc);
 				}
-				addPictureHover(from, msg, is_self);
 			}
 		};
 
