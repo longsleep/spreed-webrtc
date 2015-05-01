@@ -516,6 +516,10 @@
   right: 24px;
   top: 0px;
 
+  .btn-group > .btn-sm {
+    padding: 5px 0px;
+  }
+
   @include breakpt($breakpoint-chat-small, max-height) {
     display: none;
   }
@@ -541,7 +545,7 @@
   border-bottom: 1px solid $bordercolor-strong;
   //border-left: 1px solid $bordercolor;
   height: 48px;
-  left: 0;
+  left: 4px;
   line-height: 46px;
   padding: 0 4px 0 8px;
   position: absolute;
@@ -553,10 +557,10 @@
   }
 
   .chatstatusicon {
+    bottom: 0px;
     cursor: pointer;
     display: block;
     font-size: 1.4em;
-    height: 36px;
     left: 0;
     position: absolute;
     text-align: center;
@@ -566,7 +570,7 @@
 
   .chatheadertitle {
     display: inline;
-    padding-left: 28px;
+    padding-left: 32px;
   }
 
   .ctrl {
@@ -583,7 +587,7 @@
 
   span {
     display: inline-block;
-    max-width: 60%;
+    max-width: 50%;
     overflow: hidden;
     pointer-events: none;
     text-overflow: ellipsis;

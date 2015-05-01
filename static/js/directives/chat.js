@@ -136,9 +136,7 @@ define(['jquery', 'underscore', 'text!partials/chat.html', 'text!partials/chatro
 				if (id === groupChatId) {
 					$scope.showGroupRoom(null, options);
 				} else {
-					$scope.showRoom(id, {
-						title: translation._("Chat with")
-					}, options);
+					$scope.showRoom(id, {}, options);
 				}
 
 			});
@@ -158,9 +156,7 @@ define(['jquery', 'underscore', 'text!partials/chat.html', 'text!partials/chatro
 						console.log("This contact cannot be added.");
 						return;
 					}
-					var subscope = $scope.showRoom(id, {
-						title: translation._("Chat with")
-					}, options);
+					var subscope = $scope.showRoom(id, {}, options);
 					subscope.sendChatServer(id, "Contact request", {
 						ContactRequest: {
 							Id: randomGen.random({hex: true})
