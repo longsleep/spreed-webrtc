@@ -106,6 +106,7 @@ $buddylist-action-background: rgba(255, 255, 255, .5) !default;
 $buddylist-buddy1: $componentfg1 !default;
 $buddylist-buddy2: $componentfg2 !default;
 $buddylist-action-font-size: 1.6em;
+$buddylist-header: $headerbg !default;
 
 // chat
 $chat-width: $pane-width !default;
@@ -117,9 +118,9 @@ $chat-ctrl: rgba(0, 0, 0, .3) !default;
 $chat-timestamp: #aaa !default;
 $chat-meta: #aaa !default;
 $chat-msg-background: #f5f5f5 !default;
-$chat-msg-border: $bordercolor-strong !default;
-$chat-msg-shadow: rgba(0, 0, 0, .03) !default;
-$chat-arrow-border: #eee;
+$chat-msg-border: $chat-msg-background !default;
+$chat-msg-shadow: rgba(0, 0, 0, .3) !default;
+//$chat-arrow-border: #eee;
 
 $chat-msg-default-icon-color: #ccc !default;
 $chat-msg-unread-icon-color: #fe9a2e !default;

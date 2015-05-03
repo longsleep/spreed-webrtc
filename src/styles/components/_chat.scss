@@ -285,10 +285,10 @@
     background: $chat-msg-background;
     border: 1px solid $chat-msg-border;
     border-radius: 6px;
-    box-shadow: 0 0 2px 0 $chat-msg-shadow;
+    box-shadow: 0 0 1px 0 $chat-msg-shadow;
     clear: both;
     display: block;
-    margin: 0 4px 2px 18px;
+    margin: 0 4px 4px 18px;
     padding: 8px;
     position: relative;
     word-wrap: break-word;

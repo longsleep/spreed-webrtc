@@ -1,8 +1,10 @@
-<div class="buddylist nicescroll" ng-class="{loading: loading, empty: empty}">
-  <div class="buddycontainer">
-    <div>
+<div class="buddylistcontainer">
+  <div class="buddylistheader"><div class="budylistheadertitle"></div></div>
+  <div class="buddylist nicescroll" ng-class="{loading: loading, empty: empty}">
+    <div class="buddycontainer">
+      <div></div>
     </div>
+    <div class="buddylistloading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
+    <div class="buddylistempty">{{_("No one else here")}}</div>
   </div>
-  <div class="buddylistloading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
-  <div class="buddylistempty">{{_("No one else here")}}</div>
 </div>

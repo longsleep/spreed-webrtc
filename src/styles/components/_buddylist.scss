@@ -64,18 +64,27 @@
   display: block;
 }
 
+.buddylistcontainer {
+  border-left: 1px solid $bordercolor;
+  //border-top: 1px solid $bordercolor;
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 0;
+  top: 0;
+  pointer-events: auto;
+}
+
 .buddylist {
   background: $buddylist-background;
-  //border-top: 1px solid $bordercolor;
-  border-left: 1px solid $bordercolor;
   bottom: 0;
-  left: 25px;
+  left: 0px;
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: auto;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 48px;
 
   &.loading {
     .buddylistloading {
@@ -124,10 +133,25 @@
   }
 }
 
+.buddylistheader {
+  background: $buddylist-header;
+  border-bottom: 1px solid $bordercolor-strong;
+  height: 48px;
+  left: 0px;
+  line-height: 46px;
+  padding: 0 4px 0 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .buddylistheadertitle {
+    display: inline;
+  }
+}
+
 .buddy {
   @include tap-highlight-color($tap-highlight);
 
-  background: $sidepanebg;
   border-bottom: 1px solid $bordercolor-strong;
   cursor: pointer;
   display: block;
