@@ -835,7 +835,7 @@ define(['jquery', 'underscore', 'bigscreen', 'moment', 'sjcl', 'modernizr', 'tex
 		});
 
 		_.defer(function() {
-			if (!adapter.browserDetails.version || adapter.browserDetails.browser === "edge") {
+			if (!adapter.browserDetails.version) {
 				alertify.dialog.custom("webrtcUnsupported");
 				return;
 			}

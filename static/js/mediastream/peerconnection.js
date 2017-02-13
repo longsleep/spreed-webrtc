@@ -114,18 +114,23 @@ define(['jquery', 'underscore', 'webrtc.adapter'], function($, _, adapter) {
 				});
 			}, this);
 
-			// Create default data channel when we are in initiate mode.
 			if (currentcall.initiate) {
-				if (adapter.browserDetails.browser !== "chrome" || !window.webrtcDetectedAndroid || (adapter.browserDetails.browser === "chrome" && adapter.browserDetails.version >= 33)) {
-					// NOTE(longsleep): Android (Chrome 32) does have broken SCTP data channels
-					// which makes connection fail because of sdp set error for answer/offer.
-					// See https://code.google.com/p/webrtc/issues/detail?id=2253 Lets hope the
-					// crap gets fixed with Chrome on Android 33. For now disable SCTP in flags
-					// on Adroid to be able to accept offers with SCTP in it.
-					// chrome://flags/#disable-sctp-data-channels
+				// Create default data channel when we are in initiate mode.
+				switch (adapter.browserDetails.browser) {
+				case "edge":
+					// Edge does not support data channels for now.
+					break;
+				case "chrome":
+					if (window.webrtcDetectedAndroid && adapter.browserDetails.version < 34) {
+						// Chrome 32 on Android has broken SCTP data channels. See https://code.google.com/p/webrtc/issues/detail?id=2253
+						break;
+					}
+					/* falls through */
+				default:
 					this.createDatachannel(dataChannelDefaultLabel, {
 						ordered: true
 					});
+					break;
 				}
 			}
 

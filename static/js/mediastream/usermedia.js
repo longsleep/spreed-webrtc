@@ -88,7 +88,12 @@ define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webr
 	// Adapter to support navigator.mediaDevices API.
 	// http://w3c.github.io/mediacapture-main/getusermedia.html#mediadevices
 	var getUserMedia = (function() {
-		if (adapter.browserDetails.browser === "firefox" && adapter.browserDetails.version >= 38) {
+		if (adapter.browserDetails.browser === "chrome" ||
+			(adapter.browserDetails.browser === "firefox" && adapter.browserDetails.version < 38)) {
+
+			// Use existing adapter.
+			return navigator.getUserMedia;
+		} else {
 			console.info("Enabled mediaDevices adapter ...");
 			return function(constraints, success, error) {
 				// Full constraints syntax with plain values and ideal-algorithm supported in FF38+.
@@ -145,9 +150,6 @@ define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webr
 					});
 				});
 			}
-		} else {
-			// Use existing adapter.
-			return navigator.getUserMedia;
 		}
 	})();
 
