@@ -20,7 +20,7 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'mediastream/peercall', 'mediastream/tokens', 'webrtc.adapter'], function($, _, PeerCall, tokens) {
+define(['jquery', 'underscore', 'mediastream/peercall', 'mediastream/tokens'], function($, _, PeerCall, tokens) {
 
 	var xfersIds = 0;
 	var PeerXfer;

@@ -20,7 +20,7 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'text!partials/screenshare.html', 'text!partials/screensharepeer.html', 'bigscreen', 'webrtc.adapter'], function($, _, template, templatePeer, BigScreen) {
+define(['jquery', 'underscore', 'text!partials/screenshare.html', 'text!partials/screensharepeer.html', 'bigscreen', 'webrtc.adapter'], function($, _, template, templatePeer, BigScreen, adapter) {
 
 	return ["$window", "mediaStream", "$compile", "safeApply", "videoWaiter", "$timeout", "alertify", "translation", "screensharing", function($window, mediaStream, $compile, safeApply, videoWaiter, $timeout, alertify, translation, screensharing) {
 
@@ -137,7 +137,8 @@ define(['jquery', 'underscore', 'text!partials/screenshare.html', 'text!partials
 					pane.append(clonedElement);
 					scope.element = clonedElement;
 					var video = clonedElement.find("video")[0];
-					$window.attachMediaStream(video, stream);
+					//$window.attachMediaStream(video, stream);
+					video.srcObject = stream;
 					videoWaiter.wait(video, stream, function() {
 						console.log("Screensharing size: ", video.videoWidth, video.videoHeight);
 					}, function() {
@@ -278,12 +279,7 @@ define(['jquery', 'underscore', 'text!partials/screenshare.html', 'text!partials
 						switch (error.name) {
 						case "PermissionDeniedError":
 						case "InvalidStateError":
-							if ($window.webrtcDetectedVersion >= 32 &&
-								$window.webrtcDetectedVersion < 37) {
-								alertify.dialog.alert(translation._("Permission to start screen sharing was denied. Make sure to have enabled screen sharing access for your browser. Copy chrome://flags/#enable-usermedia-screen-capture and open it with your browser and enable the flag on top. Then restart the browser and you are ready to go."));
-							} else {
-								alertify.dialog.alert(translation._("Permission to start screen sharing was denied."));
-							}
+							alertify.dialog.alert(translation._("Permission to start screen sharing was denied."));
 							break;
 						default:
 							alertify.dialog.alert(translation._("Failed to start screen sharing (%s).", error.name));

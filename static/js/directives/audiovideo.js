@@ -20,7 +20,7 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'text!partials/audiovideo.html', 'text!partials/audiovideopeer.html', 'bigscreen', 'webrtc.adapter'], function($, _, template, templatePeer, BigScreen) {
+define(['jquery', 'underscore', 'text!partials/audiovideo.html', 'text!partials/audiovideopeer.html', 'bigscreen', 'webrtc.adapter'], function($, _, template, templatePeer, BigScreen, adapter) {
 
 	return ["$window", "$compile", "$filter", "mediaStream", "safeApply", "desktopNotify", "buddyData", "videoWaiter", "videoLayout", "animationFrame", "$timeout", "dummyStream", function($window, $compile, $filter, mediaStream, safeApply, desktopNotify, buddyData, videoWaiter, videoLayout, animationFrame, $timeout, DummyStream) {
 
@@ -144,7 +144,8 @@ define(['jquery', 'underscore', 'text!partials/audiovideo.html', 'text!partials/
 							return;
 						} else {
 							var video = clonedElement.find("video")[0];
-							$window.attachMediaStream(video, stream);
+							//$window.attachMediaStream(video, stream);
+							video.srcObject = stream;
 							// Waiter callbacks also count as connected, as browser support (FireFox 25) is not setting state changes properly.
 							videoWaiter.wait(video, stream, function(withvideo) {
 								if (scope.destroyed) {
@@ -334,7 +335,8 @@ define(['jquery', 'underscore', 'text!partials/audiovideo.html', 'text!partials/
 				console.log("Remote stream added.", stream, currentcall);
 				if (!$scope.haveStreams) {
 					//console.log("First stream");
-					$window.reattachMediaStream($scope.miniVideo, $scope.localVideo);
+					//$window.reattachMediaStream($scope.miniVideo, $scope.localVideo);
+					$scope.miniVideo.srcObject = $scope.localVideo.srcObject;
 					$scope.haveStreams = true;
 				}
 				if (stream === null) {

@@ -20,7 +20,7 @@
  */
 
 "use strict";
- define(["jquery", "underscore", "webrtc.adapter"], function($, _) {
+ define(["jquery", "underscore", "webrtc.adapter"], function($, _, adapter) {
 
 	// constraints
 	return ["webrtc", "$window", "$q", function(webrtc, $window, $q) {
@@ -151,11 +151,11 @@
 		// Some default constraints.
 		service.e.on("refresh", function(event, constraints) {
 
-			if ($window.webrtcDetectedBrowser === "chrome") {
+			if (adapter.browserDetails.browser === "chrome") {
 				// NOTE(longsleep): We can always enable SCTP data channels, as we have a workaround
 				// using the "active" event for Firefox < 27.
 				// SCTP does not work correctly with Chrome 31. Require M32.
-				if ($window.webrtcDetectedVersion >= 32) {
+				if (adapter.browserDetails.version >= 32) {
 					// SCTP is supported from Chrome M31.
 					// No need to pass DTLS constraint as it is on by default in Chrome M31.
 					// For SCTP, reliable and ordered is true by default.
@@ -190,10 +190,11 @@
 				service.stun = stunData;
 			},
 			supported: (function() {
-				var isChrome = $window.webrtcDetectedBrowser === "chrome";
-				var isFirefox = $window.webrtcDetectedBrowser === "firefox";
-				var isEdge = $window.webrtcDetectedBrowser === "edge";
-				var version = $window.webrtcDetectedVersion;
+				var isChrome = adapter.browserDetails.browser === "chrome";
+				var isFirefox = adapter.browserDetails.browser === "firefox";
+				var isEdge = adapter.browserDetails.browser === "edge";
+				var isSafari = adapter.browserDetails.browser === "safari";
+				var version = adapter.browserDetails.version;
 				// Constraints support table.
 				return {
 					// Chrome supports it. FF supports new spec starting 38. See https://wiki.mozilla.org/Media/getUserMedia for FF details.
@@ -205,7 +206,8 @@
 					vp9: isChrome && version >= 48,
 					chrome: isChrome,
 					firefox: isFirefox,
-					edge: isEdge
+					edge: isEdge,
+					safari: isSafari
 				};
 			})()
 		};

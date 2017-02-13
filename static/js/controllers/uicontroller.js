@@ -20,7 +20,7 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'bigscreen', 'moment', 'sjcl', 'modernizr', 'text!sounds/sprite1.json', 'webrtc.adapter'], function($, _, BigScreen, moment, sjcl, Modernizr, sprite1Definition) {
+define(['jquery', 'underscore', 'bigscreen', 'moment', 'sjcl', 'modernizr', 'text!sounds/sprite1.json', 'webrtc.adapter'], function($, _, BigScreen, moment, sjcl, Modernizr, sprite1Definition, adapter) {
 
 	return ["$scope", "$rootScope", "$element", "$window", "$timeout", "safeDisplayName", "safeApply", "mediaStream", "appData", "playSound", "desktopNotify", "alertify", "toastr", "translation", "fileDownload", "localStorage", "screensharing", "localStatus", "dialogs", "rooms", "constraints", "turnData", function($scope, $rootScope, $element, $window, $timeout, safeDisplayName, safeApply, mediaStream, appData, playSound, desktopNotify, alertify, toastr, translation, fileDownload, localStorage, screensharing, localStatus, dialogs, rooms, constraints, turnData) {
 
@@ -126,9 +126,9 @@ define(['jquery', 'underscore', 'bigscreen', 'moment', 'sjcl', 'modernizr', 'tex
 		})();
 
 		// Add browser details for easy access.
-		$scope.isChrome = $window.webrtcDetectedBrowser === "chrome";
-		$scope.webrtcDetectedBrowser = $window.webrtcDetectedBrowser;
-		$scope.webrtcDetectedVersion = $window.webrtcDetectedVersion;
+		$scope.isChrome = adapter.browserDetails.browser === "chrome";
+		$scope.webrtcDetectedBrowser = adapter.browserDetails.browser;
+		$scope.webrtcDetectedVersion = adapter.browserDetails.version;
 
 		// Add support status.
 		$scope.supported = {
@@ -835,16 +835,16 @@ define(['jquery', 'underscore', 'bigscreen', 'moment', 'sjcl', 'modernizr', 'tex
 		});
 
 		_.defer(function() {
-			if (!$window.webrtcDetectedVersion || $window.webrtcDetectedBrowser === "edge") {
+			if (!adapter.browserDetails.version || adapter.browserDetails.browser === "edge") {
 				alertify.dialog.custom("webrtcUnsupported");
 				return;
 			}
-			if (!Modernizr.websockets || $window.webrtcDetectedVersion < $window.webrtcMinimumVersion) {
+			if (!Modernizr.websockets) {
 				alertify.dialog.alert(translation._("Your browser is not supported. Please upgrade to a current version."));
 				$scope.setStatus("unsupported");
 				return;
 			}
-			if (mediaStream.config.Renegotiation && $window.webrtcDetectedBrowser === "firefox" && $window.webrtcDetectedVersion < 38) {
+			if (mediaStream.config.Renegotiation && (adapter.browserDetails.browser === "firefox" && adapter.browserDetails.version < 38)) {
 				// See https://bugzilla.mozilla.org/show_bug.cgi?id=1017888
 				// and https://bugzilla.mozilla.org/show_bug.cgi?id=840728
 				// and https://bugzilla.mozilla.org/show_bug.cgi?id=842455

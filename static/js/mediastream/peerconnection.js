@@ -20,7 +20,8 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'webrtc.adapter'], function($, _) {
+define(['jquery', 'underscore', 'webrtc.adapter'], function($, _, adapter) {
+	console.log('xxx adapter', adapter, adapter.browserDetails);
 
 	var count = 0;
 	var dataChannelDefaultLabel = "default";
@@ -81,7 +82,7 @@ define(['jquery', 'underscore', 'webrtc.adapter'], function($, _) {
 			// not support this and thus both are not compatible. For the time being this means
 			// that renegotiation does not work between Firefox and Chrome. Even worse, current
 			// spec says that the event should really be named ontrack.
-			if (window.webrtcDetectedBrowser === "firefox") {
+			if (adapter.browserDetails.browser === "firefox") {
 				// NOTE(longsleep): onnegotiationneeded is not supported by Firefox < 38.
 				// Also firefox does not care about streams, but has the newer API for tracks
 				// implemented. This does not work together with Chrome, so we trigger negotiation
@@ -115,7 +116,7 @@ define(['jquery', 'underscore', 'webrtc.adapter'], function($, _) {
 
 			// Create default data channel when we are in initiate mode.
 			if (currentcall.initiate) {
-				if (window.webrtcDetectedBrowser !== "chrome" || !window.webrtcDetectedAndroid || (window.webrtcDetectedBrowser === "chrome" && window.webrtcDetectedVersion >= 33)) {
+				if (adapter.browserDetails.browser !== "chrome" || !window.webrtcDetectedAndroid || (adapter.browserDetails.browser === "chrome" && adapter.browserDetails.version >= 33)) {
 					// NOTE(longsleep): Android (Chrome 32) does have broken SCTP data channels
 					// which makes connection fail because of sdp set error for answer/offer.
 					// See https://code.google.com/p/webrtc/issues/detail?id=2253 Lets hope the

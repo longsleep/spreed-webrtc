@@ -139,7 +139,8 @@ define(['jquery', 'underscore', 'text!partials/buddypicturecapture.html'], funct
 					$scope.showTakePicture = true;
 					localStream = stream;
 					$scope.waitingForPermission = false;
-					$window.attachMediaStream($scope.video, stream);
+					//$window.attachMediaStream($scope.video, stream);
+					$scope.video.srcObject = stream;
 					safeApply($scope);
 					videoAllowed.resolve(true);
 				}).catch(function(error) {

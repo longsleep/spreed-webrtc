@@ -20,7 +20,7 @@
  */
 
 "use strict";
-define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webrtc.adapter'], function($, _, AudioContext, DummyStream) {
+define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webrtc.adapter'], function($, _, AudioContext, DummyStream, adapter) {
 
 	// Create AudioContext singleton, if supported.
 	var context = AudioContext ? new AudioContext() : null;
@@ -88,7 +88,7 @@ define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webr
 	// Adapter to support navigator.mediaDevices API.
 	// http://w3c.github.io/mediacapture-main/getusermedia.html#mediadevices
 	var getUserMedia = (function() {
-		if (window.webrtcDetectedBrowser === "firefox"&& window.webrtcDetectedVersion >= 38) {
+		if (adapter.browserDetails.browser === "firefox" && adapter.browserDetails.version >= 38) {
 			console.info("Enabled mediaDevices adapter ...");
 			return function(constraints, success, error) {
 				// Full constraints syntax with plain values and ideal-algorithm supported in FF38+.
@@ -147,7 +147,7 @@ define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webr
 			}
 		} else {
 			// Use existing adapter.
-			return window.getUserMedia;
+			return navigator.getUserMedia;
 		}
 	})();
 
@@ -159,7 +159,7 @@ define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webr
 				_.each(tracks, function(t) {
 					t.stop();
 				});
-				if (window.webrtcDetectedBrowser === "firefox" && window.webrtcDetectedVersion < 44) {
+				if (adapter.browserDetails.browser === "firefox" && adapter.browserDetails.version < 44) {
 					// Always call stop for older Firefox < 44 to make sure gUM is correctly cleaned up.
 					// https://bugzilla.mozilla.org/show_bug.cgi?id=1192170
 					if (stream.stop) {
@@ -619,7 +619,8 @@ define(['jquery', 'underscore', 'audiocontext', 'mediastream/dummystream', 'webr
 	UserMedia.prototype.attachMediaStream = function(video) {
 
 		if (this.localStream && DummyStream.not(this.localStream)) {
-			window.attachMediaStream(video, this.localStream);
+			//window.attachMediaStream(video, this.localStream);
+			video.srcObject = this.localStream;
 		}
 
 	};

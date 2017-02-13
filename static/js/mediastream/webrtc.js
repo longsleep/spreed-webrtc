@@ -33,8 +33,7 @@ define([
 	'mediastream/peerscreenshare',
 	'mediastream/usermedia',
 	'mediastream/utils',
-	'mediastream/tokens',
-	'webrtc.adapter'],
+	'mediastream/tokens'],
 
 function($, _, PeerCall, PeerConference, PeerXfer, PeerScreenshare, UserMedia, utils, tokens) {
 
